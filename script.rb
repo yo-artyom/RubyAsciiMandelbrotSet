@@ -35,7 +35,7 @@ W = 180
 SCALE = 0.1
 
 @screen = ScreenPixels.new(W, H)
-@mset = MandelbrotSet.new(W * SCALE, H * SCALE)
+@mset = MandelbrotSet.new(W * SCALE, H * SCALE, 0 + 0i)
 
 # binding.pry
 Updater.new(@screen, @mset).call
