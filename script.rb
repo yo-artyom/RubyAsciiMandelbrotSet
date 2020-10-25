@@ -5,8 +5,9 @@ require_relative 'screen_pixels'
 
 class Updater
 
-  def initialize(screen_pixels, mandelbrot_set)
+  def initialize(screen_pixels, mandelbrot_set, scale)
     @screen_pixels = screen_pixels
+    @scale = scale
     @mandelbrot_set = mandelbrot_set
   end
 
@@ -17,10 +18,9 @@ class Updater
       x = px - H/2
       y = py - W/2
 
-      x = (SCALE * x).round(2)
-      y = (SCALE * y).round(2)
+      x = (@scale * x).round(2)
+      y = (@scale * y).round(2)
 
-      puts "calc for #{x} #{y} D: #{px}, #{py}"
       if @mandelbrot_set.check(x,y)
         @screen_pixels.update(px, py, 'x'.bg_blue)
       else
@@ -32,11 +32,19 @@ end
 
 H = 60
 W = 180
-SCALE = 0.1
+SCALE = 1
+CONST = -0.44 + 0.55i
 
 @screen = ScreenPixels.new(W, H)
-@mset = MandelbrotSet.new(W * SCALE, H * SCALE, 0 + 0i)
 
-# binding.pry
-Updater.new(@screen, @mset).call
-puts @screen.print
+scale = SCALE
+5.times do
+
+  mset = MandelbrotSet.new(W * scale, H * scale, CONST)
+  Updater.new(@screen, mset, scale).call
+  scale = scale / 4.0
+
+  system("clear")
+  puts @screen.print
+  sleep(3)
+end
