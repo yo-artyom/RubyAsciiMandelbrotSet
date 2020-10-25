@@ -14,7 +14,7 @@ class ScreenPixels
     end
   end
 
-  def print
+  def to_s
     (0..w - 1).map do |x|
       (0..h - 1).map do |y|
         @pixels[[x,y]]
