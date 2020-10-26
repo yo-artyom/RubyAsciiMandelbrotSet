@@ -10,8 +10,9 @@ class MandelbrotSet
   MAX_ITERATION = 300
   RADIUS        = 10
 
-  # true - belongs
-  # int - amount operations before leaving the R
+  # Return values
+  # true - belongs to the set
+  # int - amount iterations before leaving the R
   def check(x, y)
     calc(RADIUS, const, x + y * 1i)
   end
@@ -24,13 +25,9 @@ class MandelbrotSet
     prev_value = point
 
     (1..MAX_ITERATION).to_a.each do |i|
-      if (prev_value = prev_value ** 2 + const).abs > radius
-        result = i
-        break
-      end
+      break i if (prev_value = prev_value ** 2 + const).abs > radius
+      true
     end
-
-    result
   end
 end
 

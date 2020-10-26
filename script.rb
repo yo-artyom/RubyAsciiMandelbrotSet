@@ -1,4 +1,5 @@
 require 'pry'
+
 require_relative 'palette'
 require_relative 'mandelbrot_set'
 require_relative 'screen_pixels'
@@ -13,8 +14,7 @@ class Updater
 
   def call
     @screen_pixels.iterate do |px, py|
-      # px = 0
-      # py = 0
+      # Move (0,0) to display center
       x = px - H/2
       y = py - W/2
 
@@ -45,8 +45,8 @@ end
 H = 60
 W = 170
 SCALE = 1
-# CONST = 0.44 + 0.44i
-CONST = 2 + 1.324i
+CONST = 0.44 + 0.44i
+# CONST = 2 + 1.324i
 
 @screen = ScreenPixels.new(W, H)
 
